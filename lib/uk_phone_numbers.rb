@@ -1,5 +1,5 @@
 module UKPhoneNumbers
-  # http://www.area-codes.org.uk/formatting.shtml#programmers
+  # http://www.area-codes.org.uk/formatting.php#programmers
   PATTERNS = <<-PATTERNS
     (01###) #####[#]
     (011#) ### ####

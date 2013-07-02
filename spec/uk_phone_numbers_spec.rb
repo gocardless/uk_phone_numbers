@@ -16,23 +16,23 @@ describe UKPhoneNumbers do
     end
 
     it "strips parens from the pattern" do
-      regexp_for("()").should == "^$"
+      regexp_for("()").should_not include("()")
     end
 
     it "parenthesises whitespace-separated sections" do
-      regexp_for("0 12 345").should == "^(0)(12)(345)$"
+      regexp_for("0 12 345").should include("(0)(12)(345)")
     end
 
     it "replaces # with \\d" do
-      regexp_for("0#").should == "^(0\\d)$"
+      regexp_for("0#").should include("(0\\d)")
     end
 
     it "replaces bracketed expressions with optional non-capturing groups" do
-      regexp_for("0[12]3[4]5").should == "^(0(?:12)?3(?:4)?5)$"
+      regexp_for("0[12]3[4]5").should include("(0(?:12)?3(?:4)?5)")
     end
 
     it "handles hashes inside brackets" do
-      regexp_for("0[#]1[#]2").should == "^(0(?:\\d)?1(?:\\d)?2)$"
+      regexp_for("0[#]1[#]2").should include("(0(?:\\d)?1(?:\\d)?2)")
     end
   end
 
@@ -43,6 +43,10 @@ describe UKPhoneNumbers do
 
     it "returns false for invalid numbers" do
       subject.valid?('08456123123123').should be_false
+    end
+
+    it "returns false for multiline strings containing a valid number" do
+      subject.valid?("08456123123\nnotaphonenumber\n").should be_false
     end
   end
 

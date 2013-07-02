@@ -31,7 +31,7 @@ module UKPhoneNumbers
     regexp = regexp.split.map { |p| "(#{p})" }.join
     regexp.gsub!(/\[([^\]]*)\]/, '(?:\1)?')
     regexp.gsub!(/#/, '\d')
-    Regexp.new("^#{regexp}$")
+    Regexp.new("\\A#{regexp}\\z")
   end
 
   REGEXPS = []
